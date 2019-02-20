@@ -39,16 +39,15 @@ class App extends Component<Props> {
   };
 
   placeDeletedHandler = () => {
-  this.setState(prevState => {
-    return {
-      places: prevState.places.filter(place => {
-        return place.key !== prevState.selectedPlace.key;
-      }),
-      selectedPlace: null
-    };
-  });
+    this.setState(prevState => {
+      return {
+        places: prevState.places.filter(place => {
+          return place.key !== prevState.selectedPlace.key;
+        }),
+        selectedPlace: null
+      };
+    });
   };
-
 
   modalCloseHandler = () => {
     this.setState({
