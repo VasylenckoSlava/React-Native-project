@@ -1,4 +1,4 @@
-import { ADD_PLACE } from "../actions/actionTypes";
+import {ADD_PLACE, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE} from "../actions/actionTypes";
 
 const initialState = {
   places: [],
