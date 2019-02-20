@@ -23,6 +23,7 @@ import {
 class App extends Component {
   placeAddedHandler = placeName => {
     this.props.onAddPlace(placeName);
+      console.log("placeAdded");
   };
 
   placeDeletedHandler = () => {
@@ -33,7 +34,7 @@ class App extends Component {
     this.props.onDeselectPlace();
   };
 
-  placeSeletedHandler = key => {
+  placeSelectedHandler = key => {
     this.props.onSelectPlace(key);
   };
 
@@ -48,7 +49,7 @@ class App extends Component {
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
         <PlaceList
           places={this.props.places}
-          onItemSeleted={this.placeSeletedHandler}
+          onItemSeleted={this.placeSelectedHandler}
         />
       </View>
     );
