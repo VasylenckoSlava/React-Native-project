@@ -3934,7 +3934,7 @@ react-is@^16.6.3, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.2:
   version "16.8.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.2.tgz#09891d324cad1cb0c1f2d91f70a71a4bee34df0f"
 
-react-native-navigation@1:
+react-native-navigation@1.x.x:
   version "1.1.493"
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.493.tgz#01d57dd9822ac603cd04d4529abacf193bbbcdac"
   dependencies:
