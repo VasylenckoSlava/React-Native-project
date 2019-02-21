@@ -17,7 +17,7 @@ import {
   deletePlace,
   selectPlace,
   deselectPlace
-} from "./src/Store/actions";
+} from "./src/store/actions";
 // import placeImage from './src/assets/beautiful-place.jpg';
 
 class App extends Component {
