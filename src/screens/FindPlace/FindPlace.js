@@ -18,6 +18,7 @@ class FindPlaceScreen extends Component {
             }
         }
     };
+
     itemSelectedHandler = key => {
         const selPlace = this.props.places.find(place => {
             return place.key === key;
