@@ -1,25 +1,32 @@
 import React, { Component } from "react";
-import {
-  View,
-  Image,
-  Button,
-  Text,
-  StyleSheet,
-  ScrollView
-} from "react-native";
+import { View, Button, StyleSheet, ScrollView } from "react-native";
 import { connect } from "react-redux";
-// import PlaceInput from "../../components/PlaceInput/PlaceInput";
 import { addPlace } from "../../store/actions";
-import DefaultInput from "../../components/UI/DefaultInput/DefaultInput";
 import MainText from "../../components/UI/MainText/MainText";
 import HeadingText from "../../components/UI/HeadingText/HeadingText";
-import imagePlaceholder from "../../assets/download.jpeg";
+import PlaceInput from "../../components/PlaceInput/PlaceInput";
+import PickImage from "../../components/PickImage/PickImage";
+import PickLocation from "../../components/PickLocation/PickLocation";
 
 class SharePlaceScreen extends Component {
+  state = {
+    placeName: ""
+  };
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
+  placeNameChangeHandler = val => {
+    this.setState({
+      placeName: val
+    });
+  };
+
+  placeAddedHandler = () => {
+    if (this.state.placeName.trim() !== "") {
+      this.props.onAddPlace(this.state.placeName);
+    }
+  };
 
   onNavigatorEvent = event => {
     if (event.type === "NavBarButtonPress") {
@@ -38,21 +45,14 @@ class SharePlaceScreen extends Component {
           <MainText>
             <HeadingText>Something text</HeadingText>
           </MainText>
-          <View style={styles.placeholder}>
-            <Image source={imagePlaceholder} style={styles.previewImage} />
-          </View>
+          <PickImage />
+          <PickLocation />
+          <PlaceInput
+            placeName={this.state.placeName}
+            onChangeText={this.placeNameChangeHandler}
+          />
           <View style={styles.button}>
-            <Button title="Pick Image" />
-          </View>
-          <View style={styles.placeholder}>
-            <Text>Map</Text>
-          </View>
-          <View style={styles.button}>
-            <Button title="Locate Me" />
-          </View>
-          <DefaultInput placeholder="Place Name" />
-          <View style={styles.button}>
-            <Button title="Some text!" />
+            <Button title="Some text!" onPress={this.placeAddedHandler} />
           </View>
         </View>
       </ScrollView>
