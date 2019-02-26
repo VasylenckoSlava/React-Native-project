@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { View, Button, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Button,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView
+} from "react-native";
 import { connect } from "react-redux";
 import { addPlace } from "../../store/actions";
 import MainText from "../../components/UI/MainText/MainText";
@@ -65,26 +71,24 @@ class SharePlaceScreen extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <MainText>
-            <HeadingText>Something text</HeadingText>
-          </MainText>
-          <PickImage />
-          <PickLocation />
-          <PlaceInput
-            placeData={this.state.controls.placeName}
-            onChangeText={this.placeNameChangeHandler}
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <MainText>
+          <HeadingText>Something text</HeadingText>
+        </MainText>
+        <PickImage />
+        <PickLocation />
+        <PlaceInput
+          placeData={this.state.controls.placeName}
+          onChangeText={this.placeNameChangeHandler}
+        />
+        <View style={styles.button}>
+          <Button
+            title="Some text!"
+            onPress={this.placeAddedHandler}
+            disabled={!this.state.controls.placeName.valid}
           />
-          <View style={styles.button}>
-            <Button
-              title="Some text!"
-              onPress={this.placeAddedHandler}
-              disabled={!this.state.controls.placeName.valid}
-            />
-          </View>
         </View>
-      </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
