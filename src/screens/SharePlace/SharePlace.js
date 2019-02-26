@@ -7,28 +7,49 @@ import HeadingText from "../../components/UI/HeadingText/HeadingText";
 import PlaceInput from "../../components/PlaceInput/PlaceInput";
 import PickImage from "../../components/PickImage/PickImage";
 import PickLocation from "../../components/PickLocation/PickLocation";
+import validate from "../../utility/validation";
 
 class SharePlaceScreen extends Component {
-  static navigatorStyle ={
+  static navigatorStyle = {
     navBarButtonColor: "orange"
   };
 
   state = {
-    placeName: ""
+    placeName: "",
+    controls: {
+      placeName: {
+        value: "",
+        valid: false,
+        touched: false,
+        validationRules: {
+          notEmpty: true
+        }
+      }
+    }
   };
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
   placeNameChangeHandler = val => {
-    this.setState({
-      placeName: val
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          placeName: {
+            ...prevState.controls.placeName,
+            value: val,
+            valid: validate(val, prevState.controls.placeName.validationRules),
+            touched: true
+          }
+        }
+      };
     });
   };
 
   placeAddedHandler = () => {
-    if (this.state.placeName.trim() !== "") {
-      this.props.onAddPlace(this.state.placeName);
+    if (this.state.controls.placeName.value.trim() !== "") {
+      this.props.onAddPlace(this.state.controls.placeName.value);
     }
   };
 
@@ -52,11 +73,15 @@ class SharePlaceScreen extends Component {
           <PickImage />
           <PickLocation />
           <PlaceInput
-            placeName={this.state.placeName}
+            placeData={this.state.controls.placeName}
             onChangeText={this.placeNameChangeHandler}
           />
           <View style={styles.button}>
-            <Button title="Some text!" onPress={this.placeAddedHandler} />
+            <Button
+              title="Some text!"
+              onPress={this.placeAddedHandler}
+              disabled={!this.state.controls.placeName.valid}
+            />
           </View>
         </View>
       </ScrollView>
