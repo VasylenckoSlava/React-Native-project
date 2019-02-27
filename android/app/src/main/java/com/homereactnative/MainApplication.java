@@ -27,7 +27,7 @@ public class MainApplication extends NavigationApplication {
 //    protected List<ReactPackage> getPackages() {
 //      return Arrays.<ReactPackage>asList(
 //          new MainReactPackage(),
-            new MapsPackage(),
+     //       new MapsPackage(),
 //          new VectorIconsPackage()
 //      );
 //    }
