@@ -4,7 +4,6 @@ import {
   Button,
   StyleSheet,
   ScrollView,
-  KeyboardAvoidingView
 } from "react-native";
 import { connect } from "react-redux";
 import { addPlace } from "../../store/actions";
@@ -30,6 +29,10 @@ class SharePlaceScreen extends Component {
         validationRules: {
           notEmpty: true
         }
+      },
+      location: {
+        value: null,
+        valid: false
       }
     }
   };
@@ -53,10 +56,25 @@ class SharePlaceScreen extends Component {
     });
   };
 
+  locationPickHandler = location => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          location: {
+            value: location,
+            valid: true
+          }
+        }
+      };
+    });
+  };
+
   placeAddedHandler = () => {
-    if (this.state.controls.placeName.value.trim() !== "") {
-      this.props.onAddPlace(this.state.controls.placeName.value);
-    }
+    this.props.onAddPlace(
+      this.state.controls.placeName.value,
+      this.state.controls.location.value
+    );
   };
 
   onNavigatorEvent = event => {
@@ -71,31 +89,36 @@ class SharePlaceScreen extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <MainText>
-          <HeadingText>Something text</HeadingText>
-        </MainText>
-        <PickImage />
-        <PickLocation />
-        <PlaceInput
-          placeData={this.state.controls.placeName}
-          onChangeText={this.placeNameChangeHandler}
-        />
-        <View style={styles.button}>
-          <Button
-            title="Some text!"
-            onPress={this.placeAddedHandler}
-            disabled={!this.state.controls.placeName.valid}
+      <ScrollView>
+        <View style={styles.container}>
+          <MainText>
+            <HeadingText>Something text</HeadingText>
+          </MainText>
+          <PickImage />
+          <PickLocation onLocationPick={this.locationPickHandler} />
+          <PlaceInput
+            placeData={this.state.controls.placeName}
+            onChangeText={this.placeNameChangeHandler}
           />
+          <View style={styles.button}>
+            <Button
+              title="Some text!"
+              onPress={this.placeAddedHandler}
+              disabled={
+                !this.state.controls.placeName.valid ||
+                !this.state.controls.location.valid
+              }
+            />
+          </View>
         </View>
-      </KeyboardAvoidingView>
+      </ScrollView>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPlace: placeName => dispatch(addPlace(placeName))
+    onAddPlace: (placeName, location) => dispatch(addPlace(placeName, location))
   };
 };
 
