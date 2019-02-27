@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  Button,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, Button, StyleSheet, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import { addPlace } from "../../store/actions";
 import MainText from "../../components/UI/MainText/MainText";
@@ -31,6 +26,10 @@ class SharePlaceScreen extends Component {
         }
       },
       location: {
+        value: null,
+        valid: false
+      },
+      image: {
         value: null,
         valid: false
       }
@@ -70,10 +69,25 @@ class SharePlaceScreen extends Component {
     });
   };
 
+  imagePickedHandler = image => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          image: {
+            value: image,
+            valid: true
+          }
+        }
+      };
+    });
+  };
+
   placeAddedHandler = () => {
     this.props.onAddPlace(
       this.state.controls.placeName.value,
-      this.state.controls.location.value
+      this.state.controls.location.value,
+      this.state.controls.image.value
     );
   };
 
@@ -94,7 +108,7 @@ class SharePlaceScreen extends Component {
           <MainText>
             <HeadingText>Something text</HeadingText>
           </MainText>
-          <PickImage />
+          <PickImage onImagePicked={this.imagePickedHandler} />
           <PickLocation onLocationPick={this.locationPickHandler} />
           <PlaceInput
             placeData={this.state.controls.placeName}
@@ -106,7 +120,8 @@ class SharePlaceScreen extends Component {
               onPress={this.placeAddedHandler}
               disabled={
                 !this.state.controls.placeName.valid ||
-                !this.state.controls.location.valid
+                !this.state.controls.location.valid ||
+                !this.state.controls.image.valid
               }
             />
           </View>
@@ -118,7 +133,8 @@ class SharePlaceScreen extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPlace: (placeName, location) => dispatch(addPlace(placeName, location))
+    onAddPlace: (placeName, location, image) =>
+      dispatch(addPlace(placeName, location, image))
   };
 };
 
