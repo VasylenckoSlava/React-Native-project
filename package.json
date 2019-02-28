@@ -7,6 +7,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "firebase-tools": "^6.4.0",
+    "global": "^4.3.2",
     "react": "16.6.3",
     "react-native": "0.58.4",
     "react-native-image-picker": "^0.28.0",
