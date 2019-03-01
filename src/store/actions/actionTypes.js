@@ -1,7 +1,6 @@
 export const SET_PLACES = 'SET_PLACES';
+export const REMOVE_PLACES = 'REMOVE_PLACES';
 
-export const SELECT_PLACE = 'SELECT_PLACE';
-export const DESELECT_PLACE = 'DESELECT_PLACE';
 
 export const TRY_AUTH = 'TRY_AUTH';
 

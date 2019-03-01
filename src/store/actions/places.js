@@ -1,4 +1,4 @@
-import { SET_PLACES } from "./actionTypes";
+import { REMOVE_PLACES, SET_PLACES } from "./actionTypes";
 import { uiStartLoading, uiStopLoading } from "./ui";
 
 export const addPlace = (placeName, location, image) => {
@@ -78,8 +78,25 @@ export const setPlaces = places => {
 };
 
 export const deletePlace = key => {
+  return dispatch => {
+    dispatch(removePlace(key));
+    fetch(
+      "https://mytestproject-1551194381995.firebaseio.com/places/" + key + ".json", {
+        method: "DELETE"})
+        .catch(err => {
+          alert("Something went wrong :/");
+          console.log(err);
+        })
+        .then(res => res.json())
+        .then(parsedRes => {
+          console.log("Done");
+        })
+  };
+};
+
+export const removePlace = key => {
   return {
-    type: DELETE_PLACE,
-    placeKey: key
+    type: REMOVE_PLACES,
+    key: key
   };
 };
