@@ -13,11 +13,6 @@ export const addPlace = (placeName, location, image) => {
         })
       }
     )
-      .catch(error => {
-        console.log(error);
-        alert("Something went wrong! Try again");
-        dispatch(uiStopLoading());
-      })
       .then(res => res.json())
       .then(parsedRes => {
         const placeData = {
@@ -42,6 +37,11 @@ export const addPlace = (placeName, location, image) => {
       .then(parsedRes => {
         console.log(parsedRes);
         dispatch(uiStopLoading());
+      })
+      .catch(error => {
+        console.log(error);
+        alert("Something went wrong! Try again");
+        dispatch(uiStopLoading());
       });
   };
 };
@@ -49,10 +49,6 @@ export const addPlace = (placeName, location, image) => {
 export const getPlaces = () => {
   return dispatch => {
     fetch("https://mytestproject-1551194381995.firebaseio.com/places.json")
-      .catch(err => {
-        alert("Something went wrong :/");
-        console.log(err);
-      })
       .then(res => res.json())
       .then(parsedRes => {
         const places = [];
@@ -66,6 +62,10 @@ export const getPlaces = () => {
           });
         }
         dispatch(setPlaces(places));
+      })
+      .catch(err => {
+        alert("Something went wrong :/");
+        console.log(err);
       });
   };
 };
@@ -81,16 +81,21 @@ export const deletePlace = key => {
   return dispatch => {
     dispatch(removePlace(key));
     fetch(
-      "https://mytestproject-1551194381995.firebaseio.com/places/" + key + ".json", {
-        method: "DELETE"})
-        .catch(err => {
-          alert("Something went wrong :/");
-          console.log(err);
-        })
-        .then(res => res.json())
-        .then(parsedRes => {
-          console.log("Done");
-        })
+      "https://mytestproject-1551194381995.firebaseio.com/places/" +
+        key +
+        ".json",
+      {
+        method: "DELETE"
+      }
+    )
+      .then(res => res.json())
+      .then(parsedRes => {
+        console.log("Done");
+      })
+      .catch(err => {
+        alert("Something went wrong :/");
+        console.log(err);
+      });
   };
 };
 
