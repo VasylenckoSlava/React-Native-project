@@ -1,10 +1,11 @@
 import { uiStartLoading, uiStopLoading } from "./ui";
 import startMainTabs from "../../screens/MainTabs/startMainTabs";
+import { TRY_AUTH, AUTH_SET_TOKEN } from "./actionTypes";
 
 export const tryAuth = (authData, authMode) => {
   return dispatch => {
-    dispatch(uiStartLoading);
-    const apiKey = "AIzaSyC1k-HBwuAuheocLGay_jVqiOR7BmIDT7U";
+    dispatch(uiStartLoading());
+    const apiKey = "AIzaSyAhDNARMjr_D3PdHS-e_Nj8Abrk4Xplcrk";
     let url =
       "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
       apiKey;
@@ -32,11 +33,34 @@ export const tryAuth = (authData, authMode) => {
       .then(res => res.json())
       .then(parsedRes => {
         dispatch(uiStopLoading());
-        if (parsedRes.error) {
-          alert("Authentication failed, please try again!");
+        console.log(parsedRes);
+        if (!parsedRes.idToken) {
+          alert("Authentication failed, please try again!");x
         } else {
+          dispatch(authSetToken(parsedRes.idToken));
           startMainTabs();
         }
       });
+  };
+};
+
+export const authSetToken = token => {
+  return {
+    type: AUTH_SET_TOKEN,
+    token: token
+  };
+};
+
+export const authGetToken = () => {
+  return (dispatch, getState) => {
+    const promise = new Promise((resolve, reject) => {
+      const token = getState().auth.token;
+      if (!token) {
+        reject();
+      } else {
+        resolve(token);
+      }
+    });
+    return promise;
   };
 };
