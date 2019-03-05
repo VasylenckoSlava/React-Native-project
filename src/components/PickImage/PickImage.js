@@ -7,6 +7,12 @@ class PickImage extends Component {
     pickImage: null
   };
 
+  reset = () => {
+    this.setState({
+      pickImage: null
+    });
+  };
+
   pickImageHandler = () => {
     ImagePicker.showImagePicker(
       { title: "Pick the image", maxWidth: 800, maxHeight: 600 },
