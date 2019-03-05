@@ -4,15 +4,14 @@ import { authGetToken } from "./auth";
 
 export const addPlace = (placeName, location, image) => {
   return dispatch => {
-      let authToken;
+    let authToken;
     dispatch(uiStartLoading());
     dispatch(authGetToken())
-      .then()
       .catch(() => {
         alert("No valid token found!");
       })
       .then(token => {
-          authToken = token;
+        authToken = token;
         return fetch(
           "https://us-central1-mytestproject-1551194381995.cloudfunctions.net/storeImage",
           {
@@ -20,13 +19,18 @@ export const addPlace = (placeName, location, image) => {
             body: JSON.stringify({
               image: image.base64
             }),
-              headers: {
-                "Authorization": "Bearer " + authToken
-              }
+            headers: {
+              Authorization: "Bearer " + authToken
+            }
           }
         );
       })
-        .then(res => res.json())
+      .catch(err => {
+        console.log(err);
+        alert("Something went wrong, please try again!");
+        dispatch(uiStopLoading());
+      })
+      .then(res => res.json())
       .then(parsedRes => {
         const placeData = {
           name: placeName,
@@ -34,26 +38,22 @@ export const addPlace = (placeName, location, image) => {
           image: parsedRes.imageUrl
         };
         return fetch(
-          "https://mytestproject-1551194381995.firebaseio.com/places.json?auth=" + authToken,
+          "https://mytestproject-1551194381995.firebaseio.com/places.json?auth=" +
+            authToken,
           {
             method: "POST",
             body: JSON.stringify(placeData)
           }
         );
       })
-      .catch(error => {
-        console.log(error);
-        alert("Something went wrong! Try again");
-        dispatch(uiStopLoading());
-      })
       .then(res => res.json())
       .then(parsedRes => {
         console.log(parsedRes);
         dispatch(uiStopLoading());
       })
-      .catch(error => {
-        console.log(error);
-        alert("Something went wrong! Try again");
+      .catch(err => {
+        console.log(err);
+        alert("Something went wrong, please try again!");
         dispatch(uiStopLoading());
       });
   };
@@ -86,7 +86,7 @@ export const getPlaces = () => {
         dispatch(setPlaces(places));
       })
       .catch(err => {
-        alert("Something went wrong :/");
+        alert("Something went wrong, sorry :/");
         console.log(err);
       });
   };
@@ -119,10 +119,10 @@ export const deletePlace = key => {
       })
       .then(res => res.json())
       .then(parsedRes => {
-        console.log("Done");
+        console.log("Done!");
       })
       .catch(err => {
-        alert("Something went wrong :/");
+        alert("Something went wrong, sorry :/");
         console.log(err);
       });
   };
