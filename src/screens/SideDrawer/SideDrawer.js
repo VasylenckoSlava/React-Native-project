@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { View, Dimensions, StyleSheet, Button, Platform } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { connect } from "react-redux";
+import { authLogout } from "../../store/actions";
 
 class SideDrawer extends Component {
   render() {
@@ -18,7 +20,11 @@ class SideDrawer extends Component {
             color="#aaa"
             style={styles.drawerItemIcon}
           />
-          <Button title="Sign out" style={styles.drawerItemIcon} />
+          <Button
+            title="Sign out"
+            style={styles.drawerItemIcon}
+            onPress={this.props.onLogout}
+          />
         </View>
       </View>
     );
@@ -42,4 +48,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SideDrawer;
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(authLogout())
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SideDrawer);
