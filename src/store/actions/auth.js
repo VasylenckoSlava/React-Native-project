@@ -47,7 +47,6 @@ export const tryAuth = (authData, authMode) => {
               parsedRes.expiresIn,
               parsedRes.refreshToken
             )
-            )
           );
           startMainTabs();
         }

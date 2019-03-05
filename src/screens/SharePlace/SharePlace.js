@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Button, StyleSheet, ScrollView, Text, ActivityIndicator } from "react-native";
+import {
+  View,
+  Button,
+  StyleSheet,
+  ScrollView,
+  Text,
+  ActivityIndicator
+} from "react-native";
 import { connect } from "react-redux";
 import { addPlace } from "../../store/actions";
 import MainText from "../../components/UI/MainText/MainText";
@@ -115,13 +122,13 @@ class SharePlaceScreen extends Component {
     );
 
     if (this.props.isLoading) {
-        submitButton = <ActivityIndicator />;
+      submitButton = <ActivityIndicator />;
     }
     return (
       <ScrollView>
         <View style={styles.container}>
           <MainText>
-            <HeadingText>Something text</HeadingText>
+            <HeadingText>Take a photo</HeadingText>
           </MainText>
           <PickImage onImagePicked={this.imagePickedHandler} />
           <PickLocation onLocationPick={this.locationPickHandler} />
