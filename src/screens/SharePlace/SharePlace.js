@@ -7,7 +7,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import { connect } from "react-redux";
-import { addPlace } from "../../store/actions";
+import { addPlace, startAddPlace } from "../../store/actions";
 import MainText from "../../components/UI/MainText/MainText";
 import HeadingText from "../../components/UI/HeadingText/HeadingText";
 import PlaceInput from "../../components/PlaceInput/PlaceInput";
@@ -19,6 +19,7 @@ class SharePlaceScreen extends Component {
   static navigatorStyle = {
     navBarButtonColor: "orange"
   };
+
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
@@ -51,7 +52,29 @@ class SharePlaceScreen extends Component {
     });
   };
 
-  placeNameChangeHandler = val => {
+  componentDidUpdate() {
+    if (this.props.placeAdded) {
+      this.props.navigator.switchToTab({ tabIndex: 0 });
+      // this.props.onStartAddPlace();
+    }
+  }
+
+  onNavigatorEvent = event => {
+    if (event.type === "ScreenChangedEvent") {
+      if (event.id === "willAppear") {
+        this.props.onStartAddPlace();
+      }
+    }
+    if (event.type === "NavBarButtonPress") {
+      if (event.id === "sideDrawerToggle") {
+        this.props.navigator.toggleDrawer({
+          side: "left"
+        });
+      }
+    }
+  };
+
+  placeNameChangedHandler = val => {
     this.setState(prevState => {
       return {
         controls: {
@@ -67,7 +90,7 @@ class SharePlaceScreen extends Component {
     });
   };
 
-  locationPickHandler = location => {
+  locationPickedHandler = location => {
     this.setState(prevState => {
       return {
         controls: {
@@ -103,23 +126,14 @@ class SharePlaceScreen extends Component {
     );
     this.reset();
     this.imagePicker.reset();
-    this.pickLocation.reset();
-  };
-
-  onNavigatorEvent = event => {
-    if (event.type === "NavBarButtonPress") {
-      if (event.id === "sideDrawerToggle") {
-        this.props.navigator.toggleDrawer({
-          side: "left"
-        });
-      }
-    }
+    this.locationPicker.reset();
+    // this.props.navigator.switchToTab({tabIndex: 0});
   };
 
   render() {
     let submitButton = (
       <Button
-        title="Some text!"
+        title="Share the Place!"
         onPress={this.placeAddedHandler}
         disabled={
           !this.state.controls.placeName.valid ||
@@ -132,23 +146,24 @@ class SharePlaceScreen extends Component {
     if (this.props.isLoading) {
       submitButton = <ActivityIndicator />;
     }
+
     return (
       <ScrollView>
         <View style={styles.container}>
           <MainText>
-            <HeadingText>Take a photo</HeadingText>
+            <HeadingText>Share a Place!</HeadingText>
           </MainText>
           <PickImage
             onImagePicked={this.imagePickedHandler}
             ref={ref => (this.imagePicker = ref)}
           />
           <PickLocation
-            onLocationPick={this.locationPickHandler}
-            ref={ref => (this.pickLocation = ref)}
+            onLocationPick={this.locationPickedHandler}
+            ref={ref => (this.locationPicker = ref)}
           />
           <PlaceInput
             placeData={this.state.controls.placeName}
-            onChangeText={this.placeNameChangeHandler}
+            onChangeText={this.placeNameChangedHandler}
           />
           <View style={styles.button}>{submitButton}</View>
         </View>
@@ -157,26 +172,12 @@ class SharePlaceScreen extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isLoading: state.ui.isLoading
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddPlace: (placeName, location, image) =>
-      dispatch(addPlace(placeName, location, image))
-  };
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center"
   },
   placeholder: {
-    borderRadius: 5,
     borderWidth: 1,
     borderColor: "black",
     backgroundColor: "#eee",
@@ -191,6 +192,21 @@ const styles = StyleSheet.create({
     height: "100%"
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    isLoading: state.ui.isLoading,
+    placeAdded: state.places.placeAdded
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddPlace: (placeName, location, image) =>
+      dispatch(addPlace(placeName, location, image)),
+    onStartAddPlace: () => dispatch(startAddPlace())
+  };
+};
 
 export default connect(
   mapStateToProps,

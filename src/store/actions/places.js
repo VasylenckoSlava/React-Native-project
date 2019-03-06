@@ -1,6 +1,17 @@
-import { REMOVE_PLACES, SET_PLACES } from "./actionTypes";
+import {
+  PLACE_ADDED,
+  REMOVE_PLACES,
+  SET_PLACES,
+  START_ADD_PLACE
+} from "./actionTypes";
 import { uiStartLoading, uiStopLoading } from "./ui";
 import { authGetToken } from "./auth";
+
+export const startAddPlace = () => {
+  return {
+    type: START_ADD_PLACE
+  };
+};
 
 export const addPlace = (placeName, location, image) => {
   return dispatch => {
@@ -50,12 +61,19 @@ export const addPlace = (placeName, location, image) => {
       .then(parsedRes => {
         console.log(parsedRes);
         dispatch(uiStopLoading());
+        dispatch(placeAdded());
       })
       .catch(err => {
         console.log(err);
         alert("Something went wrong, please try again!");
         dispatch(uiStopLoading());
       });
+  };
+};
+
+export const placeAdded = () => {
+  return {
+    type: PLACE_ADDED
   };
 };
 
