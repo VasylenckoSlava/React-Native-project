@@ -11,6 +11,6 @@ export {
   authAutoSignIn,
   authLogout,
   authClearStorage,
-  authRemoveToken
+  authRemoveToken,
 } from "./auth";
 export { uiStartLoading, uiStopLoading } from "./ui";

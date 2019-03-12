@@ -5,11 +5,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 const startTabs = () => {
   Promise.all([
     Icon.getImageSource(Platform.OS === "android" ? "md-map" : "ios-disc", 30),
-    Icon.getImageSource(
-      Platform.OS === "android" ? "md-share-alt" : "ios-share",
-      30
-    ),
-    Icon.getImageSource(Platform.OS === "android" ? "md-menu" : "ios-menu", 30)
+    Icon.getImageSource(Platform.OS === "android" ? "md-share-alt" : "ios-share", 30),
+    Icon.getImageSource(Platform.OS === "android" ? "md-menu" : "ios-menu", 30),
+    Icon.getImageSource(Platform.OS === "android" ? "md-brush" : "ios-brush", 30)
   ]).then(sources => {
     Navigation.startTabBasedApp({
       tabs: [
@@ -42,7 +40,22 @@ const startTabs = () => {
               }
             ]
           }
-        }
+        },
+          {
+              screen: "awesome-places.Sketch",
+              label: "Sketch",
+              title: "Sketch",
+              icon: sources[3],
+              navigatorButtons: {
+                  leftButtons: [
+                      {
+                          icon: sources[2],
+                          title: "Menu",
+                          id: "sideDrawerToggle"
+                      }
+                  ]
+              }
+          }
       ],
       tabsStyle: {
         tabBarSelectedButtonColor: "orange"
