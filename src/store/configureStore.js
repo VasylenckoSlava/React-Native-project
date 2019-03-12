@@ -4,7 +4,7 @@ import uiReducer from "./reducers/ui";
 import authReducer from "./reducers/auth";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
-import { watchClearStorage } from "./sagas/index";
+import { watchAuth } from "./sagas/index";
 
 const rootReducer = combineReducers({
   places: placesReducer,
@@ -26,7 +26,7 @@ const configureStore = () => {
     composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
   );
 
-  sagaMiddleware.run(watchClearStorage);
+  sagaMiddleware.run(watchAuth);
 
   return store;
 };
