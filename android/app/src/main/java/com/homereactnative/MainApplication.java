@@ -3,6 +3,7 @@ package com.homereactnative;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.terrylinla.rnsketchcanvas.SketchCanvasPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -12,6 +13,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativenavigation.NavigationApplication;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.imagepicker.ImagePickerPackage;
+import com.terrylinla.rnsketchcanvas.SketchCanvasPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,8 +64,9 @@ public boolean isDebug() {
             // eg. new VectorIconsPackage()
             new VectorIconsPackage(),
             new MapsPackage(),
-            new ImagePickerPackage()
-    );
+            new ImagePickerPackage(),
+            new SketchCanvasPackage()
+       );
   }
 
   @Override
