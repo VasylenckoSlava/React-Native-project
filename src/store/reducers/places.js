@@ -27,6 +27,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         placeAdded: false
+
       };
     case PLACE_ADDED:
       return {

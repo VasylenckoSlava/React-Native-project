@@ -2,7 +2,11 @@ import { AsyncStorage } from "react-native";
 
 import { uiStartLoading, uiStopLoading } from "./ui";
 import startMainTabs from "../../screens/MainTabs/startMainTabs";
-import { AUTH_REMOVE_TOKEN, AUTH_SET_TOKEN } from "./actionTypes";
+import {
+     AUTH_LOGOUT_SUCCEED,
+    AUTH_REMOVE_TOKEN,
+    AUTH_SET_TOKEN
+} from "./actionTypes";
 import App from "../../../App";
 
 const API_KEY = "AIzaSyAhDNARMjr_D3PdHS-e_Nj8Abrk4Xplcrk";
@@ -164,7 +168,7 @@ export const authAutoSignIn = () => {
 };
 
 export const authClearStorage = () => {
-  return dispatch => {
+    return dispatch => {
     AsyncStorage.removeItem("ap:auth:token");
     AsyncStorage.removeItem("ap:auth:expiryDate");
     return AsyncStorage.removeItem("ap:auth:refreshToken");
@@ -172,12 +176,15 @@ export const authClearStorage = () => {
 };
 
 export const authLogout = () => {
-  return dispatch => {
-    dispatch(authClearStorage()).then(() => {
-      App();
-    });
-    dispatch(authRemoveToken());
-  };
+    // return dispatch => {
+    // dispatch(authClearStorage()).then(() => {
+    //   App();
+    // });
+    // dispatch(authRemoveToken());
+   // };
+    return {
+      type: AUTH_LOGOUT_SUCCEED
+    };
 };
 
 export const authRemoveToken = () => {
