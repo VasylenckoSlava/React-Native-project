@@ -7,13 +7,13 @@ import { AppRegistry } from "react-native";
 import { Provider } from "react-redux";
 import App from "./App";
 import { name as appName } from "./app.json";
-import configureStore from "./src/store/configureStore";
-
-const store = configureStore();
+import { store, persistor } from "./src/store/configureStore";
 
 const RNRedux = () => (
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>
 );
 
