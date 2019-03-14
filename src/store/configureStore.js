@@ -6,11 +6,13 @@ import uiReducer from "./reducers/ui";
 import authReducer from "./reducers/auth";
 import createSagaMiddleware from "redux-saga";
 import { watchAuth } from "./sagas/index";
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage";
+import { AsyncStorage } from "react-native";
 
 const persistConfig = {
   key: "root",
-  storage
+  storage: AsyncStorage,
+  whitelist: ["places"]
 };
 
 const rootReducer = combineReducers({

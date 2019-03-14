@@ -7,6 +7,7 @@ import { store } from "./src/store/configureStore";
 import PlaceDetailScreen from "./src/screens/PlaceDetail/PlaceDetail";
 import SideDrawer from "./src/screens/SideDrawer/SideDrawer";
 import SketchScreen from "./src/screens/SketchScreen/SketchScreen";
+import PushNotificationsScreen from "./src/screens/PushNotificationsScreen/PushNotificationsScreen";
 
 // Register screens
 
@@ -35,6 +36,7 @@ Navigation.registerComponent(
   Provider
 );
 Navigation.registerComponent("awesome-places.Sketch", () => SketchScreen);
+Navigation.registerComponent("awesome-places.PushNotificationsScreen", () => PushNotificationsScreen);
 Navigation.registerComponent(
   "awesome-places.SideDrawer",
   () => SideDrawer,
