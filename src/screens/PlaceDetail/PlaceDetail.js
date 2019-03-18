@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     placeName: {
         fontWeight: "bold",
         textAlign: "center",
-        fontSize: 28
+        fontSize: 28,
+        color: "#0066CC"
     },
     map: {
         ...StyleSheet.absoluteFillObject

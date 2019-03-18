@@ -58,7 +58,7 @@ const startTabs = () => {
               }
           },
           {
-              screen: "awesome-places.PushNotificationsScreen",
+              screen: "awesome-places.InterestingPlaceScreen",
               label: "Push",
               title: "Push",
               icon: sources[4],
