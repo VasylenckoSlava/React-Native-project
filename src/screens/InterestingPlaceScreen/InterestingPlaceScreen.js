@@ -6,21 +6,6 @@ const restraints = [
   { name: "React cafe", address: "123 Anywhere st" },
   { name: "Fancy cafe", address: "799 Anywhere st" },
   { name: "Taco cafe", address: "550 Anywhere st" },
-  { name: "React cafe", address: "123 Anywhere st" },
-  { name: "Fancy cafe", address: "799 Anywhere st" },
-  { name: "Taco cafe", address: "550 Anywhere st" },
-  { name: "React cafe", address: "123 Anywhere st" },
-  { name: "Fancy cafe", address: "799 Anywhere st" },
-  { name: "Taco cafe", address: "550 Anywhere st" },
-  { name: "React cafe", address: "123 Anywhere st" },
-  { name: "Fancy cafe", address: "799 Anywhere st" },
-  { name: "Taco cafe", address: "550 Anywhere st" },
-  { name: "React cafe", address: "123 Anywhere st" },
-  { name: "Fancy cafe", address: "799 Anywhere st" },
-  { name: "Taco cafe", address: "550 Anywhere st" },
-  { name: "React cafe", address: "123 Anywhere st" },
-  { name: "Fancy cafe", address: "799 Anywhere st" },
-  { name: "Taco cafe", address: "550 Anywhere st" }
 ];
 
 class InterestingPlaceScreen extends Component {

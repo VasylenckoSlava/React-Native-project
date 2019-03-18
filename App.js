@@ -9,6 +9,7 @@ import SideDrawer from "./src/screens/SideDrawer/SideDrawer";
 import SketchScreen from "./src/screens/SketchScreen/SketchScreen";
 import InterestingPlaceScreen from "./src/screens/InterestingPlaceScreen/InterestingPlaceScreen";
 import InterestingPlacedetailInfo from "./src/screens/InterestingPlaceDetailInfo/InterestingPlacedetailInfo";
+import AddReview from "./src/components/AddReview/AddReview";
 
 // Register screens
 
@@ -39,12 +40,8 @@ Navigation.registerComponent(
 Navigation.registerComponent("awesome-places.Sketch", () => SketchScreen);
 Navigation.registerComponent("awesome-places.InterestingPlaceScreen", () => InterestingPlaceScreen);
 Navigation.registerComponent("awesome-places.InterestingPlaceDetailInfo", () => InterestingPlacedetailInfo);
-Navigation.registerComponent(
-  "awesome-places.SideDrawer",
-  () => SideDrawer,
-  store,
-  Provider
-);
+Navigation.registerComponent("awesome-places.AddReview", () => AddReview);
+Navigation.registerComponent("awesome-places.SideDrawer", () => SideDrawer, store, Provider);
 
 // Start a App
 

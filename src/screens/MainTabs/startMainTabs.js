@@ -8,7 +8,7 @@ const startTabs = () => {
     Icon.getImageSource(Platform.OS === "android" ? "md-share-alt" : "ios-share", 30),
     Icon.getImageSource(Platform.OS === "android" ? "md-menu" : "ios-menu", 30),
     Icon.getImageSource(Platform.OS === "android" ? "md-brush" : "ios-brush", 30),
-    Icon.getImageSource(Platform.OS === "android" ? "md-color-wand" : "ios-color-wand", 30)
+    Icon.getImageSource(Platform.OS === "android" ? "md-information-circle-outline" : "ios-information-circle-outline", 30)
   ]).then(sources => {
     Navigation.startTabBasedApp({
       tabs: [
@@ -59,8 +59,8 @@ const startTabs = () => {
           },
           {
               screen: "awesome-places.InterestingPlaceScreen",
-              label: "Push",
-              title: "Push",
+              label: "About",
+              title: "About",
               icon: sources[4],
               navigatorButtons: {
                   leftButtons: [

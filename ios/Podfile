@@ -1,0 +1,22 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'homeReactNative' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for homeReactNative
+
+  target 'homeReactNative-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+    pod 'RNSketchCanvas', :path => '../node_modules/@terrylinla/react-native-sketch-canvas'
+
+  end
+
+  target 'homeReactNativeTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
