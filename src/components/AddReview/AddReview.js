@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  TextInput
+  TextInput,
+  ActivityIndicator
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -14,13 +15,36 @@ class AddReview extends Component {
     name: "",
     rating: 0,
     comment: "",
-    review: ""
+    review: "",
+    submitting: false
   };
 
-  submitReview = () => {
+  submitReview = props => {
+    this.setState({
+      submitting: true
+    });
     fetch(
-      "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyAhDNARMjr_D3PdHS-e_Nj8Abrk4Xplcrk"
-    ).then(response =>console.log(response.json()))
+      "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyAhDNARMjr_D3PdHS-e_Nj8Abrk4Xplcrk",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          name: this.state.name,
+          rating: this.state.rating,
+          comment: this.state.comment
+        })
+      }
+    )
+      .then(response => response.json())
+      .then(result => {
+        this.setState({ submitting: false }, () => {
+          this.props.navigator.dismissModal();
+        });
+      })
+      .catch(error => {
+        this.setState({
+          submitting: false
+        });
+      });
   };
   close = () => {
     this.props.navigator.dismissModal();
@@ -66,9 +90,14 @@ class AddReview extends Component {
             numberOfLines={5}
           />
 
+          {this.state.submitting && (
+            <ActivityIndicator size="large" color="#0066CC" />
+          )}
+
           <TouchableOpacity
             style={styles.submitButton}
             onPress={this.submitReview}
+            disabled={this.state.submitting}
           >
             <Text style={styles.submitButtonText}>Submit Review</Text>
           </TouchableOpacity>

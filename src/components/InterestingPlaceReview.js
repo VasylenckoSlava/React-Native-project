@@ -8,16 +8,6 @@ class InterestingPlaceReview extends Component {
     restaurants: []
   };
 
-  // componentDidMount() {
-  //   fetch("http://localhost:3000/restaurants")
-  //     .then(response => response.json())
-  //     .then(result =>
-  //       this.setState({
-  //         restaurants: result
-  //       })
-  //     );
-  // }
-
   infoPressed = () => {
     this.props.navigator.push({
       screen: "awesome-places.InterestingPlaceDetailInfo",
